@@ -3,7 +3,7 @@
 - Место: старый дом переписчиков
   Статус: временно использован как безопасный дом.
   Зачем фракции: укрытие и точка сделки.
-  Связанные события: `core/world/places/old_scribes_house/events/night_ambush.md`
+  Связанные события: `campaigns/oiven_legacy/world/places/old_scribes_house/events/night_ambush.md`
 
 - Место: путь к воде и старым складам
   Статус: направление известно, точные локации пока не заведены.

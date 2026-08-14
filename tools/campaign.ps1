@@ -1,6 +1,6 @@
 param(
     [Parameter(Position = 0)]
-    [ValidateSet("new", "start", "import-core", "list", "active", "save", "saves", "restore", "status", "help")]
+    [ValidateSet("new", "start", "list", "active", "save", "saves", "restore", "status", "help")]
     [string]$Command = "help",
 
     [Parameter(Position = 1)]
@@ -59,6 +59,8 @@ function New-WorldSkeleton($CampaignPath, $Title) {
     )
 
     New-Dir (Join-Path $CampaignPath "saves")
+    New-Dir (Join-Path $CampaignPath "assets/maps")
+    New-Dir (Join-Path $CampaignPath "assets/portraits")
     New-Dir $world
     foreach ($dir in $worldDirs) {
         New-Dir (Join-Path $world $dir)
@@ -123,6 +125,7 @@ Use `core/world/places/README.md` as the structure reference.
     Write-Utf8 (Join-Path $world "characters/README.md") "# Campaign Characters`n`nUse `core/world/characters/KNOWLEDGE.md` as the structure reference."
     Write-Utf8 (Join-Path $world "factions/README.md") "# Campaign Factions`n`nUse `core/world/factions/README.md` as the structure reference."
     Write-Utf8 (Join-Path $world "places/README.md") "# Campaign Places`n`nUse `core/world/places/README.md` as the structure reference."
+    Write-Utf8 (Join-Path $CampaignPath "assets/README.md") "# Campaign Assets`n`nMaps, portraits, and other campaign-specific visual assets live here."
 }
 
 function Copy-Directory($Source, $Destination) {
@@ -143,8 +146,6 @@ Campaign tool
 Commands:
   new <campaign_id> [title]       Create a campaign from the core skeleton.
   start <campaign_id> [title]     Create a campaign and make it active.
-  import-core <campaign_id> [title]
-                                  Copy current core/world into a new campaign.
   list                            List campaigns.
   active [campaign_id]            Show or set active campaign.
   status                          Show active campaign and important paths.
@@ -156,7 +157,6 @@ Commands:
 Examples:
   .\tools\campaign.ps1 start mira_01 "Mira campaign"
   .\tools\campaign.ps1 new oiven_01 "Oiven campaign"
-  .\tools\campaign.ps1 import-core oiven_legacy "Oiven legacy import"
   .\tools\campaign.ps1 active oiven_01
   .\tools\campaign.ps1 save oiven_01 before_archive_return
 "@
@@ -190,32 +190,6 @@ switch ($Command) {
         New-WorldSkeleton $campaignPath $title
         Write-Utf8 $ActiveFile $CampaignId
         Write-Host "Created and activated campaign: $CampaignId"
-        Write-Host "Path: $campaignPath"
-    }
-
-    "import-core" {
-        Assert-CampaignId $CampaignId
-        $campaignPath = Get-CampaignPath $CampaignId
-        if (Test-Path $campaignPath) {
-            throw "Campaign already exists: $CampaignId"
-        }
-        $title = if ([string]::IsNullOrWhiteSpace($Name)) { $CampaignId } else { $Name }
-        New-Dir $campaignPath
-        New-Dir (Join-Path $campaignPath "saves")
-        Copy-Directory (Join-Path $Root "core/world") (Join-Path $campaignPath "world")
-        Write-Utf8 (Join-Path $campaignPath "CAMPAIGN.md") @"
-# $title
-
-Id: $CampaignId
-Status: imported
-Source: core/world
-
-## Notes
-
-This campaign was imported from the legacy `core/world` directory.
-The import does not delete or modify `core/world`.
-"@
-        Write-Host "Imported core/world into campaign: $CampaignId"
         Write-Host "Path: $campaignPath"
     }
 

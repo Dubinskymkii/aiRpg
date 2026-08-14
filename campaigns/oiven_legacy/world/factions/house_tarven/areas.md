@@ -3,7 +3,7 @@
 - Место: соляные склады
   Статус: через Кайра и соляную контору.
   Зачем фракции: деньги, письма, посредники.
-  Связанные события: `core/world/places/salt_warehouses/events/kair_confrontation.md`
+  Связанные события: `campaigns/oiven_legacy/world/places/salt_warehouses/events/kair_confrontation.md`
 
 - Место: верхний город или старый долговой двор
   Статус: вероятное направление Эрсана после провала; точная локация пока не заведена.

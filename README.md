@@ -16,7 +16,6 @@ Use the campaign tool:
 .\tools\campaign.ps1 help
 .\tools\campaign.ps1 start mira_01 "Mira campaign"
 .\tools\campaign.ps1 new oiven_01 "Oiven campaign"
-.\tools\campaign.ps1 import-core oiven_legacy "Oiven legacy import"
 .\tools\campaign.ps1 active oiven_01
 .\tools\campaign.ps1 save oiven_01 before_archive_return
 ```

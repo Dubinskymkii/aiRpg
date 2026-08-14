@@ -10,6 +10,9 @@
 campaigns/
   campaign_id/
     CAMPAIGN.md
+    assets/
+      maps/
+      portraits/
     world/
       artifacts/
       characters/
@@ -30,7 +33,7 @@ campaigns/
 
 Активная кампания указывается в `.airpg/ACTIVE_CAMPAIGN`.
 
-Если активная кампания задана, игровой мастер должен читать ее `world/sessions/ACTIVE.md`, а не старый `core/world/sessions/ACTIVE.md`.
+Игровой мастер должен читать `world/sessions/ACTIVE.md` активной кампании. В `core/world/` игровых сессий и канона нет.
 
 ## Инструмент
 
@@ -38,16 +41,13 @@ campaigns/
 
 ```powershell
 .\tools\campaign.ps1 list
-.\tools\campaign.ps1 new oiven_01 "Первая кампания Ойвена"
-.\tools\campaign.ps1 import-core oiven_legacy "Импорт текущей кампании"
+.\tools\campaign.ps1 new hero_01 "Новая кампания"
 .\tools\campaign.ps1 active oiven_01
 .\tools\campaign.ps1 save oiven_01 before_archive_return
 .\tools\campaign.ps1 saves oiven_01
 ```
 
 `new` создает пустую кампанию из структуры ядра.
-
-`import-core` копирует текущий legacy-мир из `core/world` в новую кампанию. Команда не удаляет и не меняет `core/world`.
 
 Восстановление сейва перезаписывает `campaigns/<id>/world/`, поэтому требует `-Force`:
 
