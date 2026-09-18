@@ -3,8 +3,9 @@
 A tiny command-line RPG prototype for experimenting with three kinds of input:
 
 - Plain text: in-character player actions, such as `go north`, `take torch`, or `talk to Mira`.
-- Out-of-context commands: system/player commands prefixed with `/`, such as `/help`, `/new`, `/look`, `/save`, and `/quit`.
-- Game creation commands: live world-editing commands prefixed with `!`, such as `!room`, `!item`, `!npc`, `!link`, and `!place`.
+- Commands use a single prefix: `*`. Examples: `*help`, `*new`, `*look`, `*save`, `*status`, `*inventory`, and `*quit`.
+- Live world-editing commands use the same prefix: `*room`, `*item`, `*npc`, `*link`, and `*place`.
+- Any `*text` that is not a known command is treated as an out-of-game message to the agent.
 
 ## Campaigns
 
@@ -43,8 +44,8 @@ python rpg.py
 Try:
 
 ```text
-/help
-/new mira_01 | Mira campaign
+*help
+*new mira_01 | Mira campaign
 look
 take torch
 talk to Mira
@@ -59,10 +60,10 @@ go east
 ## Creation Examples
 
 ```text
-!room Crystal Cave | Quartz walls hum softly.
-!link north | Crystal Cave
+*room Crystal Cave | Quartz walls hum softly.
+*link north | Crystal Cave
 go north
-!item brass coin | Warm, scratched, and strangely heavy.
-!place item | brass coin | Crystal Cave
+*item brass coin | Warm, scratched, and strangely heavy.
+*place item | brass coin | Crystal Cave
 take brass coin
 ```
