@@ -12,6 +12,7 @@
 ## Карта Источников
 
 - Общие правила игры: `core/rules/RULES.md`
+- Проверки восприятия и активного наблюдения: `core/rules/PERCEPTION.md`
 - Кампании и сейвы:
   - активная кампания: `.airpg/ACTIVE_CAMPAIGN`
   - конкретные кампании: `campaigns/<campaign_id>/`
