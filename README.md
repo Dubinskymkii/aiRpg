@@ -79,3 +79,10 @@ take brass coin
   is the convenient validator entry point.
 - `tools/campaign.ps1 save ...`
   validates first and refuses to save a structurally invalid campaign.
+
+
+## CI validation
+
+GitHub Actions runs `Validate RPG campaigns` on pushes to `master`, pull requests, and manual dispatch.
+It executes `tools/campaign.ps1 validate` for every directory under `campaigns/`.
+A structurally invalid campaign makes the workflow fail.

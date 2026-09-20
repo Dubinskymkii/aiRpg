@@ -1,0 +1,39 @@
+name: Validate RPG campaigns
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate campaign canon
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate all campaigns
+        shell: pwsh
+        run: |
+          $campaigns = Get-ChildItem -Path campaigns -Directory
+
+          if ($campaigns.Count -eq 0) {
+            Write-Host "No campaigns found."
+            exit 0
+          }
+
+          foreach ($campaign in $campaigns) {
+            Write-Host ""
+            Write-Host "=== Validating $($campaign.Name) ==="
+            ./tools/campaign.ps1 validate $campaign.Name
+          }
+
+          Write-Host ""
+          Write-Host "All campaigns passed validation."
