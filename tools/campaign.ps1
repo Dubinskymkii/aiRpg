@@ -1,6 +1,6 @@
 param(
     [Parameter(Position = 0)]
-    [ValidateSet("new", "start", "list", "active", "save", "saves", "restore", "status", "help")]
+    [ValidateSet("new", "start", "list", "active", "save", "saves", "restore", "status", "validate", "help")]
     [string]$Command = "help",
 
     [Parameter(Position = 1)]
@@ -149,6 +149,7 @@ Commands:
   list                            List campaigns.
   active [campaign_id]            Show or set active campaign.
   status                          Show active campaign and important paths.
+  validate <campaign_id>          Validate campaign structure and canon invariants.
   save <campaign_id> <save_id>    Snapshot campaign world into saves/<save_id>.
   saves <campaign_id>             List saves for a campaign.
   restore <campaign_id> <save_id> -Force
@@ -158,6 +159,7 @@ Examples:
   .\tools\campaign.ps1 start mira_01 "Mira campaign"
   .\tools\campaign.ps1 new oiven_01 "Oiven campaign"
   .\tools\campaign.ps1 active oiven_01
+  .\tools\campaign.ps1 validate oiven_01
   .\tools\campaign.ps1 save oiven_01 before_archive_return
 "@
 }
@@ -238,6 +240,11 @@ switch ($Command) {
     "save" {
         Assert-CampaignId $CampaignId
         Assert-CampaignId $Name
+
+        & (Join-Path $PSScriptRoot "validate-campaign.ps1") -CampaignId $CampaignId
+        if ($LASTEXITCODE -ne 0) {
+            throw "Campaign validation failed. Save aborted."
+        }
         $campaignPath = Get-CampaignPath $CampaignId
         $worldPath = Join-Path $campaignPath "world"
         $savePath = Join-Path $campaignPath "saves/$Name"
@@ -257,6 +264,14 @@ Created: $(Get-Date -Format "yyyy-MM-dd HH:mm:ss zzz")
 Source: campaigns/$CampaignId/world
 "@
         Write-Host "Saved campaign '$CampaignId' as '$Name'."
+    }
+
+    "validate" {
+        Assert-CampaignId $CampaignId
+        & (Join-Path $PSScriptRoot "validate-campaign.ps1") -CampaignId $CampaignId
+        if ($LASTEXITCODE -ne 0) {
+            throw "Campaign validation failed."
+        }
     }
 
     "saves" {

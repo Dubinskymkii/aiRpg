@@ -67,3 +67,15 @@ go north
 *place item | brass coin | Crystal Cave
 take brass coin
 ```
+
+
+## Campaign integrity tools
+
+- `tools/promote-character.ps1 <campaign_id> <character_id> <main|secondary|tertiary> [display_name] [role]`
+  creates the complete character file structure from `core/world/templates/character/`.
+- `tools/validate-campaign.ps1 -CampaignId <campaign_id>`
+  checks required world folders, complete character structures, ACTIVE.md references, and ACTIVE.md size.
+- `tools/campaign.ps1 validate <campaign_id>`
+  is the convenient validator entry point.
+- `tools/campaign.ps1 save ...`
+  validates first and refuses to save a structurally invalid campaign.
