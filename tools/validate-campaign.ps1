@@ -25,6 +25,8 @@ $CampaignPath = Join-Path $Root "campaigns/$CampaignId"
 $WorldPath = Join-Path $CampaignPath "world"
 $CharactersPath = Join-Path $WorldPath "characters"
 $ActivePath = Join-Path $WorldPath "sessions/ACTIVE.md"
+$PlacesPath = Join-Path $WorldPath "places"
+$MapPath = Join-Path $PlacesPath "MAP.md"
 
 $Errors = New-Object System.Collections.Generic.List[string]
 $Warnings = New-Object System.Collections.Generic.List[string]
@@ -61,6 +63,33 @@ $RequiredWorldDirs = @(
 
 foreach ($dir in $RequiredWorldDirs) {
     Require-Path (Join-Path $WorldPath $dir) "World directory" | Out-Null
+}
+
+Require-Path $MapPath "Campaign map" | Out-Null
+
+$RequiredPlaceFiles = @("profile.md","geography.md","state.md","history.md")
+if (Test-Path $PlacesPath) {
+    foreach ($placeDir in Get-ChildItem -Path $PlacesPath -Directory) {
+        foreach ($file in $RequiredPlaceFiles) {
+            $filePath = Join-Path $placeDir.FullName $file
+            if (-not (Test-Path $filePath)) {
+                Add-ValidationError "Place '$($placeDir.Name)' missing $file"
+            }
+        }
+        $eventsDir = Join-Path $placeDir.FullName "events"
+        if (-not (Test-Path $eventsDir)) {
+            Add-ValidationError "Place '$($placeDir.Name)' missing events/ directory"
+        }
+    }
+}
+
+if (Test-Path $MapPath) {
+    $mapText = Get-Content $MapPath -Raw
+    foreach ($placeDir in Get-ChildItem -Path $PlacesPath -Directory) {
+        if ($mapText -notmatch "(?m)^-\s+$([regex]::Escape($placeDir.Name))\s+\|") {
+            Add-ValidationError "Place '$($placeDir.Name)' is missing from MAP.md"
+        }
+    }
 }
 
 $RequiredCharacterFiles = @(
