@@ -25,8 +25,10 @@ Read before continuing:
 - `core/world/COMPACTION.md`
 - `campaigns/totalnaya_voina/world/characters/main/boets/profile.md`
 - `campaigns/totalnaya_voina/world/characters/main/boets/stats.md`
+- `campaigns/totalnaya_voina/world/characters/main/boets/speech_style.md`
 - `campaigns/totalnaya_voina/world/characters/main/boets/inventory.md`
 - `campaigns/totalnaya_voina/world/characters/secondary/desyatnik/profile.md`
+- `campaigns/totalnaya_voina/world/characters/secondary/desyatnik/speech_style.md`
 - `campaigns/totalnaya_voina/world/sessions/ACTIVE.md`
 
 Active events:
