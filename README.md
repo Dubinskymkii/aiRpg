@@ -1,88 +1,272 @@
 # aiRPG
 
-A tiny command-line RPG prototype for experimenting with three kinds of input:
+aiRPG — файловая текстовая RPG для игры через AI-агента.
 
-- Plain text: in-character player actions, such as `go north`, `take torch`, or `talk to Mira`.
-- Commands use a single prefix: `*`. Examples: `*help`, `*new`, `*look`, `*save`, `*status`, `*inventory`, and `*quit`.
-- Live world-editing commands use the same prefix: `*room`, `*item`, `*npc`, `*link`, and `*place`.
-- Any `*text` that is not a known command is treated as an out-of-game message to the agent.
+Агент выступает игровым мастером, читает канон кампании из репозитория, ведёт сцену, использует правила, сохраняет изменения мира и поддерживает отдельные кампании.
 
-## Campaigns
+Главный принцип проекта: **канон живёт в файлах, а не только в чате**.
 
-`core/` is the rules and structure skeleton. New playable campaign state should live in `campaigns/<campaign_id>/`.
+## Как начать
 
-Use the campaign tool:
+### 1. Дайте агенту доступ к репозиторию
 
-```powershell
-.\tools\campaign.ps1 help
-.\tools\campaign.ps1 start mira_01 "Mira campaign"
-.\tools\campaign.ps1 new oiven_01 "Oiven campaign"
-.\tools\campaign.ps1 active oiven_01
-.\tools\campaign.ps1 save oiven_01 before_archive_return
-```
+Откройте репозиторий:
 
-Campaign saves are stored in:
+`Dubinskymkii/aiRpg`
 
-```text
-campaigns/<campaign_id>/saves/
-```
+Рабочая ветка:
 
-## Run
+`master`
 
-```powershell
-.\rpg.ps1
-```
+Агент должен уметь читать и изменять файлы репозитория.
 
-There is also a Python version for later:
+### 2. Первое сообщение агенту
 
-```powershell
-python rpg.py
-```
-
-## Quick Start
-
-Try:
+Достаточно написать:
 
 ```text
-*help
-*new mira_01 | Mira campaign
-look
-take torch
-talk to Mira
-go north
-take silver key
-go south
-go east
-use silver key
-go east
+Работай с репозиторием Dubinskymkii/aiRpg, ветка master.
+Прочитай AGENTS.md и следуй инструкциям проекта.
 ```
 
-## Creation Examples
+После этого агент должен:
+
+1. прочитать `AGENTS.md`;
+2. использовать `core/agent/OPERATIONS.md` для операций;
+3. не читать `tools/*.ps1` ради понимания логики проекта;
+4. определить активную кампанию через `.airpg/ACTIVE_CAMPAIGN`.
+
+## Новая кампания
+
+Создание кампании начинается командой:
 
 ```text
-*room Crystal Cave | Quartz walls hum softly.
-*link north | Crystal Cave
-go north
-*item brass coin | Warm, scratched, and strangely heavy.
-*place item | brass coin | Crystal Cave
-take brass coin
+*new campaign_id | Название кампании
 ```
 
+Пример:
 
-## Campaign integrity tools
+```text
+*new total_war | Тотальная война
+```
 
-- `tools/promote-character.ps1 <campaign_id> <character_id> <main|secondary|tertiary> [display_name] [role]`
-  creates the complete character file structure from `core/world/templates/character/`.
-- `tools/validate-campaign.ps1 -CampaignId <campaign_id>`
-  checks required world folders, complete character structures, ACTIVE.md references, and ACTIVE.md size.
-- `tools/campaign.ps1 validate <campaign_id>`
-  is the convenient validator entry point.
-- `tools/campaign.ps1 save ...`
-  validates first and refuses to save a structurally invalid campaign.
+`campaign_id` может содержать:
 
+- латинские буквы;
+- цифры;
+- `_`;
+- `-`.
 
-## CI validation
+После `*new` агент:
 
-GitHub Actions runs `Validate RPG campaigns` on pushes to `master`, pull requests, and manual dispatch.
-It executes `tools/campaign.ps1 validate` for every directory under `campaigns/`.
-A structurally invalid campaign makes the workflow fail.
+1. создаёт структуру кампании;
+2. делает её активной;
+3. не начинает сцену сразу;
+4. просит описание первого игрового персонажа.
+
+После этого игрок обычным текстом описывает персонажа.
+
+Например:
+
+```text
+Я обычный боец регулярной армии. Уже видел пару небольших стычек,
+но настоящей войны ещё не нюхал. Хорошо терплю боль и довольно
+внимательный, зато ленив и не очень люблю дисциплину.
+```
+
+Агент создаст персонажа, минимальный игровой мир, проверит структуру кампании и только после этого начнёт первый игровой кадр.
+
+## Продолжение существующей кампании
+
+Если `.airpg/ACTIVE_CAMPAIGN` уже указывает на кампанию, достаточно после подключения агента писать обычные игровые действия.
+
+Агент должен сам:
+
+1. определить активную кампанию;
+2. прочитать её `world/sessions/ACTIVE.md`;
+3. прочитать перечисленные там источники;
+4. продолжить текущую сцену.
+
+Чтобы работать с другой существующей кампанией, можно дать агенту внеигровую команду обычным `*`-сообщением, например:
+
+```text
+*сделай активной кампанию mokritsy_01
+```
+
+Неизвестная `*`-команда трактуется как внеигровое обращение к агенту, поэтому агент должен выполнить `ACTIVATE_CAMPAIGN` из `core/agent/OPERATIONS.md`.
+
+## Как играть
+
+Обычный текст без префикса `*` считается действием или репликой игрового персонажа.
+
+Примеры:
+
+```text
+осматриваю дорогу
+подхожу к двери и прислушиваюсь
+спрашиваю десятника что происходит
+прячусь за щитом
+бью его коротким мечом
+```
+
+Если действие рискованное, агент назначает проверку по правилам из `core/rules/RULES.md`.
+
+## Основные команды
+
+Все пользовательские команды начинаются с `*`.
+
+### `*new`
+
+Создать новую кампанию.
+
+```text
+*new campaign_id | Название
+```
+
+### `*status`
+
+Показать текущую кампанию, сцену и основные сведения о состоянии игры.
+
+### `*inventory`
+
+Показать канонический инвентарь игрового персонажа.
+
+```text
+*inventory
+```
+
+### `*look`
+
+Осмотреть текущую сцену или получить краткое описание непосредственного окружения.
+
+### `*save`
+
+Создать save текущей кампании после успешной валидации и компактизации канона.
+
+### `*help`
+
+Показать доступные пользовательские команды.
+
+### `*quit`
+
+Завершить текущую игровую сессию. Перед завершением агент должен сохранить важные изменения канона по правилам компактизации.
+
+## Внеигровые команды
+
+Любой текст, начинающийся с `*`, но не совпадающий с известной игровой командой, считается обращением к агенту вне игры.
+
+Например:
+
+```text
+*покажи структуру текущей кампании
+*проверь ACTIVE.md
+*создай фракцию на основе уже известных фактов
+*сделай активной кампанию oiven_legacy
+```
+
+Это позволяет обсуждать и редактировать проект, не смешивая такие сообщения с действиями персонажа.
+
+## Где лежит что
+
+```text
+AGENTS.md
+  общие инструкции агенту
+
+core/
+  agent/
+    OPERATIONS.md
+      процедуры создания и изменения канона
+
+  rules/
+    RULES.md
+    PERCEPTION.md
+      игровая механика
+
+  world/
+    BOOTSTRAP.md
+      первичное создание мира
+
+    COMPACTION.md
+      сжатие и перенос канона
+
+    characters/
+      структура персонажей
+
+    places/
+      структура мест и карта
+
+    factions/
+      структура фракций
+
+campaigns/
+  <campaign_id>/
+    CAMPAIGN.md
+
+    world/
+      characters/
+        players/
+        secondary/
+        tertiary/
+
+      places/
+      factions/
+      artifacts/
+      history/
+      sessions/
+        ACTIVE.md
+
+    saves/
+    assets/
+```
+
+## Персонажи
+
+`players/` — игровые персонажи, которыми управляют игроки.
+
+`secondary/` — значимые NPC с устойчивой ролью, целями или влиянием на сюжет.
+
+`tertiary/` — небольшие именованные NPC без большой собственной дуги.
+
+Кампания может содержать несколько игровых персонажей.
+
+## Мир
+
+Первичная сборка мира описана в:
+
+`core/world/BOOTSTRAP.md`
+
+Мир создаётся постепенно. Не нужно заранее строить энциклопедию континента, религий и тысячелетней истории.
+
+Агент создаёт места, персонажей, фракции и историю тогда, когда они становятся содержательно важными для игры.
+
+## Операции
+
+Источник правды для процедур агента:
+
+`core/agent/OPERATIONS.md`
+
+Там описаны:
+
+- `CREATE_CAMPAIGN`;
+- `CREATE_PLAYER_CHARACTER`;
+- `PROMOTE_CHARACTER`;
+- `CREATE_PLACE`;
+- `UPDATE_ACTIVE_CONTEXT`;
+- `VALIDATE_CAMPAIGN`;
+- `COMPACT_CAMPAIGN`;
+- `SAVE_CAMPAIGN`;
+- `RESTORE_CAMPAIGN`;
+- `ACTIVATE_CAMPAIGN`.
+
+Файлы в `tools/*.ps1` являются только необязательными helper-скриптами и не являются источником логики проекта.
+
+## Проверка целостности
+
+Кампания должна проходить `VALIDATE_CAMPAIGN`:
+
+- после важных изменений канона;
+- после обязательной компактизации;
+- перед save;
+- перед первым игровым кадром новой кампании.
+
+GitHub Actions также проверяет кампании при изменениях в репозитории.
