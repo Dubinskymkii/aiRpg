@@ -16,6 +16,7 @@
 - Правила игры: `core/rules/RULES.md`
 - Восприятие: `core/rules/PERCEPTION.md`
 - Компактизация: `core/world/COMPACTION.md`
+- Первичная сборка мира: `core/world/BOOTSTRAP.md`
 - Знания и структура персонажей: `core/world/characters/KNOWLEDGE.md`
 - Структура мест и география: `core/world/places/README.md`
 - Структура фракций: `core/world/factions/README.md`
