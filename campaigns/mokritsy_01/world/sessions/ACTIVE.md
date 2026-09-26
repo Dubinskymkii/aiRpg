@@ -26,11 +26,11 @@ Immediate threats / open mysteries:
 Read before continuing:
 - core/rules/RULES.md
 - core/rules/PERCEPTION.md
-- campaigns/mokritsy_01/world/characters/main/yarko/profile.md
-- campaigns/mokritsy_01/world/characters/main/yarko/stats.md
-- campaigns/mokritsy_01/world/characters/main/yarko/inventory.md
-- campaigns/mokritsy_01/world/characters/main/yarko/current_goals.md
-- campaigns/mokritsy_01/world/characters/main/yarko/short_memory.md
+- campaigns/mokritsy_01/world/characters/players/yarko/profile.md
+- campaigns/mokritsy_01/world/characters/players/yarko/stats.md
+- campaigns/mokritsy_01/world/characters/players/yarko/inventory.md
+- campaigns/mokritsy_01/world/characters/players/yarko/current_goals.md
+- campaigns/mokritsy_01/world/characters/players/yarko/short_memory.md
 - campaigns/mokritsy_01/world/characters/secondary/mara/profile.md
 - campaigns/mokritsy_01/world/characters/secondary/rovek/profile.md
 - campaigns/mokritsy_01/world/characters/secondary/horn/profile.md

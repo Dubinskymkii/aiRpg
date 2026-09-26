@@ -19,9 +19,9 @@ Immediate threat: временное размещение ненадёжно; л
 Read before continuing:
 - core/rules/RULES.md
 - campaigns/mokritsy_01/world/sessions/ACTIVE.md
-- campaigns/mokritsy_01/world/characters/main/yarko/profile.md
-- campaigns/mokritsy_01/world/characters/main/yarko/stats.md
-- campaigns/mokritsy_01/world/characters/main/yarko/speech_style.md
+- campaigns/mokritsy_01/world/characters/players/yarko/profile.md
+- campaigns/mokritsy_01/world/characters/players/yarko/stats.md
+- campaigns/mokritsy_01/world/characters/players/yarko/speech_style.md
 - campaigns/mokritsy_01/world/places/mokritsy/profile.md
 
 Active events:
