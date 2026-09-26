@@ -54,3 +54,18 @@ campaigns/
 ```powershell
 .\tools\campaign.ps1 restore oiven_01 before_archive_return -Force
 ```
+
+
+## Пользовательский запуск новой кампании
+
+Обычный игрок не обязан задавать технический campaign id.
+
+Пользователь пишет:
+
+```text
+*new
+```
+
+Агент получает описание первого героя, сам генерирует читаемый id и название, затем выполняет CREATE_CAMPAIGN и CREATE_PLAYER_CHARACTER.
+
+Ручной синтаксис `*new <campaign_id> | <название>` остаётся расширенным режимом.
