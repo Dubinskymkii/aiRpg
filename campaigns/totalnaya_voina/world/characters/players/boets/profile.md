@@ -1,7 +1,7 @@
 # Боец
 
 Character id: boets
-Category: main
+Category: players
 Role: рядовой боец регулярного войска
 
 ## Description
