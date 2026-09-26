@@ -49,7 +49,7 @@ function New-WorldSkeleton($CampaignPath, $Title) {
 
     $worldDirs = @(
         "artifacts",
-        "characters/main",
+        "characters/players",
         "characters/secondary",
         "characters/tertiary",
         "factions",

@@ -6,7 +6,7 @@ param(
     [string]$CharacterId,
 
     [Parameter(Mandatory = $true, Position = 2)]
-    [ValidateSet("main", "secondary", "tertiary")]
+    [ValidateSet("players", "secondary", "tertiary")]
     [string]$Category,
 
     [Parameter(Position = 3)]

@@ -51,7 +51,7 @@ if (-not (Require-Path $CampaignPath "Campaign")) { }
 if (-not (Require-Path $WorldPath "World")) { }
 
 $RequiredWorldDirs = @(
-    "characters/main",
+    "characters/players",
     "characters/secondary",
     "characters/tertiary",
     "places",
@@ -104,7 +104,7 @@ $RequiredCharacterFiles = @(
     "long_memory.md"
 )
 
-foreach ($category in @("main", "secondary", "tertiary")) {
+foreach ($category in @("players", "secondary", "tertiary")) {
     $categoryPath = Join-Path $CharactersPath $category
     if (-not (Test-Path $categoryPath)) { continue }
 
@@ -118,9 +118,9 @@ foreach ($category in @("main", "secondary", "tertiary")) {
     }
 }
 
-$MainPath = Join-Path $CharactersPath "main"
-if ((Test-Path $MainPath) -and ((Get-ChildItem -Path $MainPath -Directory).Count -eq 0)) {
-    Add-ValidationWarning "No main character exists yet."
+$PlayersPath = Join-Path $CharactersPath "players"
+if ((Test-Path $PlayersPath) -and ((Get-ChildItem -Path $PlayersPath -Directory).Count -eq 0)) {
+    Add-ValidationWarning "No player character exists yet."
 }
 
 if (Require-Path $ActivePath "ACTIVE session") {
@@ -145,13 +145,13 @@ if (Require-Path $ActivePath "ACTIVE session") {
     }
 }
 
-$YarkoLikeInventories = Get-ChildItem -Path (Join-Path $CharactersPath "main") -Directory -ErrorAction SilentlyContinue
-foreach ($hero in $YarkoLikeInventories) {
+$PlayerInventories = Get-ChildItem -Path (Join-Path $CharactersPath "players") -Directory -ErrorAction SilentlyContinue
+foreach ($hero in $PlayerInventories) {
     $inventory = Join-Path $hero.FullName "inventory.md"
     if (Test-Path $inventory) {
         $text = Get-Content $inventory -Raw
         if ([string]::IsNullOrWhiteSpace($text)) {
-            Add-ValidationError "Main character '$($hero.Name)' has empty inventory.md"
+            Add-ValidationError "Player character '$($hero.Name)' has empty inventory.md"
         }
     }
 }

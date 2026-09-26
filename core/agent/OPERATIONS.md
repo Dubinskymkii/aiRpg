@@ -29,7 +29,7 @@ PowerShell-файлы в `tools/` являются необязательным�
 - создать `campaigns/<campaign_id>/CAMPAIGN.md`;
 - создать:
   - `world/artifacts/`
-  - `world/characters/main/`
+  - `world/characters/players/`
   - `world/characters/secondary/`
   - `world/characters/tertiary/`
   - `world/factions/`
@@ -92,7 +92,7 @@ PowerShell-файлы в `tools/` являются необязательным�
 Не оптимизировать игрового персонажа под механику. Характеристики должны следовать описанию пользователя.
 
 Обязательный результат:
-создать `campaigns/<campaign_id>/world/characters/main/<character_id>/` с файлами:
+создать `campaigns/<campaign_id>/world/characters/players/<character_id>/` с файлами:
 - `profile.md`
 - `stats.md`
 - `speech_style.md`
@@ -120,7 +120,7 @@ PowerShell-файлы в `tools/` являются необязательным�
 - только после успешной валидации разрешён первый игровой кадр.
 
 Допустимый helper для создания каркаса:
-- `tools/promote-character.ps1 <campaign_id> <character_id> main [display_name] [role]`.
+- `tools/promote-character.ps1 <campaign_id> <character_id> players [display_name] [role]`.
 Helper создаёт только структуру. Агент всё равно обязан заполнить её каноном и обновить `ACTIVE.md`.
 
 ---
@@ -141,7 +141,7 @@ NPC становится значимым:
 - `tertiary`: именованный бытовой NPC без собственной большой дуги.
 
 Обязательный результат:
-создать полную папку персонажа с теми же 9 файлами, что у главного героя.
+создать полную папку персонажа с теми же 9 файлами, что у игрового персонажа.
 
 Перенести только уже установленный канон. Не заполнять неизвестные детали догадками.
 
@@ -250,7 +250,7 @@ NPC становится значимым:
 
 Персонажи:
 - у каждого значимого персонажа существуют все 9 обязательных файлов;
-- у каждого игрового персонажа в `main/` есть непустой `inventory.md`.
+- у каждого игрового персонажа в `players/` есть непустой `inventory.md`.
 
 Места:
 - у каждой папки места есть:
@@ -264,7 +264,7 @@ NPC становится значимым:
 ACTIVE:
 - не более 150 строк;
 - каждая указанная ссылка существует;
-- для каждого игрового персонажа из `main/`, указанного в `Who is nearby`, в `Read before continuing` есть:
+- для каждого игрового персонажа из `players/`, указанного в `Who is nearby`, в `Read before continuing` есть:
   - profile
   - stats
   - speech_style

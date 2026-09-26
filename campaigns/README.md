@@ -16,7 +16,7 @@ campaigns/
     world/
       artifacts/
       characters/
-        main/
+        players/
         secondary/
         tertiary/
       factions/
