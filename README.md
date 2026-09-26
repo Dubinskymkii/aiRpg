@@ -315,3 +315,17 @@ campaigns/
 - перед первым игровым кадром новой кампании.
 
 GitHub Actions также проверяет кампании при изменениях в репозитории.
+
+
+## Simplified new campaign flow
+
+Normal player flow:
+
+1. Type `*new`.
+2. Describe the new hero in 1-3 sentences.
+3. The agent generates a readable campaign id and title from the hero/theme.
+4. The agent creates and activates the campaign, creates the hero and minimal starting world, validates the campaign, then begins play.
+
+Manual advanced form remains available:
+
+`*new campaign_id | Campaign title`
