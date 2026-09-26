@@ -3,22 +3,20 @@
 Current campaign: Тихая добыча
 
 Current scene:
-Вор предложил помощь недавно прибывшей женщине, которая искала постоялый двор «Три щуки». Она согласилась идти с ним. Носильщик несёт её небольшой окованный сундучок. Хорошо одетый мужчина, ранее замеченный у винной лавки, пока остаётся позади на рынке.
+После разговора с приезжей женщиной и появления хорошо одетого мужчины Вор ушёл от них, оторвался от возможного хвоста и спустился в Нижние катакомбы. Теперь он проводит время среди местных разговоров и привычной подземной жизни, не задавая пока конкретных вопросов.
 
 Where the group is:
-Выходят со Старого рынка по пути к постоялому двору «Три щуки».
+Нижние катакомбы.
 
 Who is nearby:
 - главный герой: Вор;
-- приезжая женщина;
-- её носильщик как фоновый персонаж;
-- рыночная толпа и патрули постепенно остаются позади.
+- местные обитатели и посетители катакомб как фон; значимые NPC в текущем разговоре пока не установлены.
 
 Immediate goal:
-Проводить женщину к «Трём щукам», наблюдая за ней, её багажом и возможной слежкой.
+Смешаться с местными, выдохнуть после истории у «Трёх щук» и при желании выведать новости или слухи.
 
 Immediate threat:
-Усиленная городская стража в торговом квартале; неизвестно, следит ли хорошо одетый мужчина за приезжими.
+Прямой угрозы не установлено. Любопытство к слишком конкретным вопросам может привлечь внимание.
 
 Read before continuing:
 - `core/rules/RULES.md`
@@ -28,28 +26,22 @@ Read before continuing:
 - `campaigns/tihaya_dobycha/world/characters/players/vor/stats.md`
 - `campaigns/tihaya_dobycha/world/characters/players/vor/speech_style.md`
 - `campaigns/tihaya_dobycha/world/characters/players/vor/inventory.md`
-- `campaigns/tihaya_dobycha/world/characters/tertiary/priezzhaya_zhenshchina/profile.md`
-- `campaigns/tihaya_dobycha/world/characters/tertiary/priezzhaya_zhenshchina/speech_style.md`
-- `campaigns/tihaya_dobycha/world/places/stary_rynok/profile.md`
-- `campaigns/tihaya_dobycha/world/places/stary_rynok/geography.md`
-- `campaigns/tihaya_dobycha/world/places/stary_rynok/state.md`
-- `campaigns/tihaya_dobycha/world/places/tri_shchuki/profile.md`
-- `campaigns/tihaya_dobycha/world/places/tri_shchuki/geography.md`
-- `campaigns/tihaya_dobycha/world/places/tri_shchuki/state.md`
-- `campaigns/tihaya_dobycha/world/factions/gorodskaya_strazha/profile.md`
-- `campaigns/tihaya_dobycha/world/factions/gorodskaya_strazha/operations.md`
+- `campaigns/tihaya_dobycha/world/places/nizhnie_katakomby/profile.md`
+- `campaigns/tihaya_dobycha/world/places/nizhnie_katakomby/geography.md`
+- `campaigns/tihaya_dobycha/world/places/nizhnie_katakomby/state.md`
 - `campaigns/tihaya_dobycha/world/sessions/ACTIVE.md`
 
 Active events:
 - Усиленные патрули и выборочные проверки вокруг Старого рынка.
-- Вор сопровождает приезжую женщину к «Трём щукам».
+- Вор находится в Нижних катакомбах и общается с местными.
 
 Uncompacted changes:
-- Вор выбрал приезжую женщину как возможную лёгкую цель, но пока только предложил помощь.
-- Женщина согласилась идти с ним.
+- Вор предупредил приезжую женщину, что его якобы нанимают приводить таких, как она, к «Трём щукам»; она ему не поверила.
+- Хорошо одетый мужчина появился рядом в конце разговора.
+- Вор ушёл и успешно оторвался от возможного наблюдения.
+- Вор плохо оценил прошлую сцену и склонен переоценивать версию, что хорошо одетый мужчина следил именно за женщиной.
 
 GM working notes:
-- Не связывать Вора с предыдущими кражами без действия игрока или установленного источника.
-- Содержимое сундучка неизвестно Вору.
-- Не считать хорошо одетого мужчину преследователем без наблюдения или источника.
-- Жадность должна создавать соблазн увеличить риск, но не принимать решение за игрока.
+- Не считать хорошо одетого мужчину преследователем без источника.
+- Не превращать ошибочную уверенность Вора в факт канона.
+- Нижние катакомбы пока описывать локально; расширять только по мере действий игрока.
